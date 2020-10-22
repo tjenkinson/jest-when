@@ -464,7 +464,7 @@ describe('When', () => {
       expect(fn('bar')).toEqual(false)
     })
 
-    it('has a default which is a function', () => {
+    it('has a default value which is a function', () => {
       const fn = jest.fn()
       const defaultValue = () => { }
 
@@ -473,6 +473,17 @@ describe('When', () => {
         .calledWith('bar').mockReturnValue('baz')
 
       expect(fn('foo')).toBe(defaultValue)
+    })
+
+    it('has a default implementation', () => {
+      const fn = jest.fn()
+
+      when(fn)
+        .mockImplementation(() => 1)
+        .calledWith('bar').mockReturnValue('baz')
+
+      expect(fn('foo')).toBe(1)
+      expect(fn('bar')).toBe('baz')
     })
 
     it('keeps the default with a lot of matchers', () => {
